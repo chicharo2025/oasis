@@ -1,0 +1,25 @@
+
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+<h2>Todos los Productos</h2>
+<div class="row">
+    {% for producto in productos %}
+    <div class="col-md-4 mb-4">  <!-- Agregué mb-4 para margen inferior -->
+        <div class="card h-100">  <!-- h-100 para tarjetas del mismo tamaño -->
+            <a href="{% url 'detalle_producto' producto.id %}" class="text-decoration-none text-dark">  
+                <img src="{{ producto.imagen.url }}" class="card-img-top p-3" alt="{{ producto.nombre }}" style="height: 300px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">${{ producto.precio }}</p>  <!-- Agregué precio como ejemplo -->
+                </div>
+            </a>
+        </div>
+    </div>
+    {% empty %}  <!-- Manejo cuando no hay productos -->
+    <div class="col-12">
+        <div class="alert alert-info">No hay productos disponibles.</div>
+    </div>
+    {% endfor %}
+</div>

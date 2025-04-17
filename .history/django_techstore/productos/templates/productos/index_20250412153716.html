@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Tech Store</a>
+            <input class="form-control" type="search" placeholder="Buscar productos...">
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Categorías</h2>
+        <ul>
+            {% for categoria in categorias %}
+            <li>{{ categoria.nombre }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Productos en Oferta</h2>
+        <div class="row">
+            {% for producto in productos_oferta %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p><strong>Precio: </strong>${{ producto.precio }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Todos los Productos</h2>
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p><strong>Precio: </strong>${{ producto.precio }}</p>
+                        <p><strong>Categoría: </strong>{{ producto.categoria }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Tech Store - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

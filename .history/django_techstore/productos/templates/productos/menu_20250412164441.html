@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Oasis{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos del menú desplegable */
+        .menu-desplegable {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .menu-desplegable.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (común a todas las páginas) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-store"></i>
+                    <span>Oasis</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'categorias' %}">Categorías</a></li>
+                        <li><a href="{% url 'productos' %}">Productos</a></li>
+                        <li>
+                            <a href="#" id="toggle-menu">
+                                <i class="fas fa-bars"></i> Menú
+                            </a>
+                            <div class="menu-desplegable" id="dropdown-menu">
+                                <a href="{% url 'index' %}">Inicio</a>
+                                <a href="{% url 'categoria' %}">Categorías</a>
+                                <a href="{% url 'producto' %}">Productos</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido específico de cada página -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Script para el menú desplegable -->
+    <script>
+        document.getElementById("toggle-menu").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("dropdown-menu").classList.toggle("visible");
+        });
+    </script>
+</body>
+</html>

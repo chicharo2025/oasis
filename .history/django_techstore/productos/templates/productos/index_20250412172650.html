@@ -1,0 +1,201 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+
+</head>
+<body>
+     Header 
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-store"></i>
+                    <span>Oasis</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="categorias.html">Categorías</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#ofertas">Ofertas</a></li>
+                        <li>
+                            <a href="#carrito" class="cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    
+    <div class="container">
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Buscar productos...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+<a href="categoria.html"></a>
+    
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Licencias Digitales al Mejor Precio</h1>
+            <p>Encuentra las mejores cuentas premium de Netflix, HBO, Spotify, Office y más en un solo lugar.</p>
+            <a href="#productos" class="btn">Explorar Productos</a>
+        </div>
+    </section>
+
+  
+
+
+
+    Offers Section 
+    <section class="container" id="ofertas">
+        <h2 class="section-title">Ofertas Especiales</h2>
+        <div class="offers">
+            <div class="offer-banner">
+                <h2>¡Gran Liquidación de Verano!</h2>
+                <p>Hasta 50% de descuento en licencias seleccionadas. Oferta válida por tiempo limitado.</p>
+                <div class="timer">
+                    <div class="timer-item">
+                        <span id="days">00</span>
+                        <span>Días</span>
+                    </div>
+                    <div class="timer-item">
+                        <span id="hours">00</span>
+                        <span>Horas</span>
+                    </div>
+                    <div class="timer-item">
+                        <span id="minutes">00</span>
+                        <span>Min</span>
+                    </div>
+                    <div class="timer-item">
+                        <span id="seconds">00</span>
+                        <span>Seg</span>
+                    </div>
+                </div>
+                <a href="#productos" class="btn">Ver Ofertas</a>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const endDate = new Date();
+            endDate.setDate(now.getDate() + 7); // 7 days from now
+            
+            const totalSeconds = (endDate - now) / 1000;
+            
+            const days = Math.floor(totalSeconds / 3600 / 24);
+            const hours = Math.floor(totalSeconds / 3600) % 24;
+            const minutes = Math.floor(totalSeconds / 60) % 60;
+            const seconds = Math.floor(totalSeconds) % 60;
+            
+            document.getElementById('days').textContent = formatTime(days);
+            document.getElementById('hours').textContent = formatTime(hours);
+            document.getElementById('minutes').textContent = formatTime(minutes);
+            document.getElementById('seconds').textContent = formatTime(seconds);
+        }
+        
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Add to Cart Animation
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 0;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                count++;
+                cartCount.textContent = count;
+                
+                // Animation
+                cartCount.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    cartCount.style.transform = 'scale(1)';
+                }, 300);
+                
+                // Notification
+                const notification = document.createElement('div');
+                notification.textContent = 'Producto añadido al carrito';
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.backgroundColor = 'var(--success)';
+                notification.style.color = 'white';
+                notification.style.padding = '10px 20px';
+                notification.style.borderRadius = '5px';
+                notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+                notification.style.zIndex = '1000';
+                notification.style.animation = 'fadeIn 0.5s ease';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'fadeIn 0.5s ease reverse';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 3000);
+            });
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Search Functionality
+        const searchBar = document.querySelector('.search-bar');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', function() {
+            if (searchBar.value.trim() !== '') {
+                alert(`Buscando: ${searchBar.value}`);
+                // Implement actual search functionality here
+            }
+        });
+        
+        searchBar.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && searchBar.value.trim() !== '') {
+                alert(`Buscando: ${searchBar.value}`);
+                // Implement actual search functionality here
+            }
+        });
+    </script>
+ --> 
+
+ {% extends "productos/base.html" %}
+
+{% block title %}Inicio - Oasis{% endblock %}
+
+{% block content %}
+    <h1>Bienvenido a Oasis</h1>
+    <p>Licencias digitales al mejor precio.</p>
+{% endblock %}
+
+<a href="{% url 'categoria' %}" class="btn">Ver Categorías</a>
+<a href="{% url 'prod' %}" class="btn">Ver Productos</a>

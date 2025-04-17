@@ -1,0 +1,14 @@
+
+
+ {% extends "productos/base.html" %}
+
+{% block content %}
+<h1>Categorías Disponibles</h1>
+<ul>
+    <li>Streaming (Netflix, HBO)</li>
+    <li>Música (Spotify, Apple Music)</li>
+</ul>
+
+<!-- Enlace de vuelta al index -->
+<a href="{% url 'index' %}" class="btn">Volver al Inicio</a>
+{% endblock %}
