@@ -1,0 +1,269 @@
+<div class="cart-container">
+  <h1>TU Carrito</h1>
+  
+  <div class="cart-table">
+    <div class="cart-row header">
+      <div class="cell">Producto</div>
+      <div class="cell">Precio Unitario</div>
+      <div class="cell">Cantidad</div>
+      <div class="cell">Subtotal</div>
+      <div class="cell">Acciones</div>
+    </div>
+    
+    <div class="cart-row">
+      <div class="cell product">TUA:</div>
+      <div class="cell price">$10,000.00</div>
+      <div class="cell quantity">
+        <input type="number" value="1" min="1" class="qty-input">
+      </div>
+      <div class="cell subtotal">$10,000.00</div>
+      <div class="cell actions">
+        <button class="remove-btn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cart-total">
+    <strong>Total:</strong> <span id="total-amount">$10,000.00</span>
+  </div>
+  
+  <button id="checkout-btn" class="checkout-btn">Proceder al Pago</button>
+  
+  <div class="about-section">
+    <h2>Sobre Oasis</h2>
+    <ul>
+      <li><strong>Información</strong></li>
+      <li><strong>Contacto</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal de Pago -->
+<div id="payment-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Selecciona Método de Pago</h2>
+    <div class="payment-options">
+      <div class="payment-option" data-method="nequi">
+        <img src="https://cdn-icons-png.flaticon.com/512/2452/2452499.png" alt="Nequi">
+        <span>Nequi</span>
+      </div>
+      <div class="payment-option" data-method="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Tarjeta">
+        <span>Tarjeta</span>
+      </div>
+    </div>
+    <button id="confirm-payment" class="confirm-btn">Confirmar Pago</button>
+  </div>
+</div>
+
+<style>
+  .cart-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cart-table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+  }
+  
+  .cart-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .cart-row.header {
+    font-weight: bold;
+    background-color: #f5f5f5;
+  }
+  
+  .cell {
+    flex: 1;
+    padding: 5px;
+  }
+  
+  .qty-input {
+    width: 50px;
+    padding: 5px;
+  }
+  
+  .remove-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .cart-total {
+    text-align: right;
+    font-size: 1.2em;
+    margin: 20px 0;
+  }
+  
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #2c8a8a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin: 20px 0;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #1f6b6b;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+  }
+  
+  .close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .payment-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+  }
+  
+  .payment-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .payment-option:hover, .payment-option.selected {
+    border-color: #2c8a8a;
+    background-color: #f0f8f8;
+  }
+  
+  .payment-option img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .confirm-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2c8a8a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Variables
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const paymentModal = document.getElementById('payment-modal');
+  const closeBtn = document.querySelector('.close');
+  const paymentOptions = document.querySelectorAll('.payment-option');
+  const confirmBtn = document.getElementById('confirm-payment');
+  
+  // Abrir modal al hacer clic en "Proceder al Pago"
+  checkoutBtn.addEventListener('click', function() {
+    paymentModal.style.display = 'block';
+  });
+  
+  // Cerrar modal
+  closeBtn.addEventListener('click', function() {
+    paymentModal.style.display = 'none';
+  });
+  
+  // Cerrar modal al hacer clic fuera
+  window.addEventListener('click', function(event) {
+    if (event.target === paymentModal) {
+      paymentModal.style.display = 'none';
+    }
+  });
+  
+  // Seleccionar método de pago
+  paymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      paymentOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+  
+  // Confirmar pago
+  confirmBtn.addEventListener('click', function() {
+    const selectedMethod = document.querySelector('.payment-option.selected');
+    
+    if (!selectedMethod) {
+      alert('Por favor selecciona un método de pago');
+      return;
+    }
+    
+    const method = selectedMethod.getAttribute('data-method');
+    
+    // Aquí iría la lógica real de procesamiento de pago
+    alert(`Redirigiendo a pago con ${method === 'nequi' ? 'Nequi' : 'Tarjeta'}`);
+    
+    // Simular redirección (en un caso real sería a la pasarela de pagos)
+    setTimeout(() => {
+      paymentModal.style.display = 'none';
+      alert('Pago completado con éxito!');
+      // window.location.href = 'gracias.html'; // Redirección real
+    }, 1500);
+  });
+  
+  // Actualizar total cuando cambia la cantidad
+  const qtyInput = document.querySelector('.qty-input');
+  qtyInput.addEventListener('change', function() {
+    const price = 10000;
+    const qty = parseInt(this.value);
+    const subtotal = price * qty;
+    
+    document.querySelector('.subtotal').textContent = `$${subtotal.toLocaleString()}`;
+    document.getElementById('total-amount').textContent = `$${subtotal.toLocaleString()}`;
+  });
+  
+  // Eliminar producto
+  const removeBtn = document.querySelector('.remove-btn');
+  removeBtn.addEventListener('click', function() {
+    if (confirm('¿Seguro que deseas eliminar este producto?')) {
+      alert('Producto eliminado del carrito');
+      // Aquí iría la lógica para actualizar el carrito
+    }
+  });
+});
+</script>

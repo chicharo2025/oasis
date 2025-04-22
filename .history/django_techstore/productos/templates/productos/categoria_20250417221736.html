@@ -1,0 +1,42 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+ 
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Nuestras Categorías</h2>
+    <p class="text-center text-muted mb-5">Explora nuestros productos por categoría</p>
+    
+    <div class="row g-4">
+        {% for categoria in categorias %}
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="category-card">
+                <a href="{% url 'categoria_detalle' categoria.slug %}" class="text-decoration-none">
+                    <div class="category-image-container">
+                        {% if categoria.imagen %}
+                        <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}" class="category-img">
+                        {% else %}
+                        <div class="category-img placeholder-img">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        {% endif %}
+                        <div class="category-overlay"></div>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">{{ categoria.nombre }}</h3>
+                        <p class="category-count">{{ categoria.producto_count }} productos</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% include "productos/footer.html" %}
+
+
+
+

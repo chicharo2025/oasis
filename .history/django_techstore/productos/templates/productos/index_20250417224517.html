@@ -1,0 +1,32 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{% url 'index' %}">Oasis</a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'categoria' %}">Categorías</a></li>
+                        <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+                        <li>
+                            <a href="{% url 'ver_carrito' %}" class="cart-link">
+                                Carrito
+                                {% if request.session.carrito %}
+                                <span class="cart-counter">{{ request.session.carrito|length }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+</body>
+
+
+{% include "productos/footer.html" %}

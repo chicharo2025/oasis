@@ -1,0 +1,17 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+<h2>Resultados de búsqueda para "{{ request.GET.q }}"</h2>
+
+{% if productos %}
+  {% for p in productos %}
+    {{ p.nombre }} - {{ p.descripcion }}<br>
+  {% endfor %}
+{% else %}
+  <p>No resultados para "{{ request.GET.q }}"</p>
+  <!-- Debug: -->
+  <p>Query ejecutada: {{ productos.query }}</p>
+{% endif %}
+{% include "productos/footer.html" %}

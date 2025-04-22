@@ -1,0 +1,16 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+{% for producto in productos %}
+    {% if producto.id %}
+        <a href="{{ producto.get_absolute_url }}">{{ producto.nombre }}</a>
+    {% else %}
+        <p>{{ producto.nombre }} (sin ID válido)</p>
+    {% endif %}
+{% endfor %}
+
+
+
+{% include "productos/footer.html" %}

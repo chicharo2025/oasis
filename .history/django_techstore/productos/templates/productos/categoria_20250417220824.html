@@ -1,0 +1,22 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+ 
+<div class="container mt-4">
+    <h2>Categorías Disponibles</h2>
+    <ul>
+        {% for categoria in categorias %}
+            <li>{{ categoria.nombre }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+
+{% include "productos/footer.html" %}
+
+
+
+

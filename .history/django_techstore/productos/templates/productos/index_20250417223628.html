@@ -1,0 +1,37 @@
+{% load static %}
+{% include "productos/menu.html" %}
+sy
+<h1 style="text-align: center;padding: 20px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Bienvenido a OASIS</h1>
+<p style="color: rgb(210, 30, 192); padding: 20px; text-align: center; font-size: x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Licencias digitales al mejor precio.</p>
+
+<div class="container mt-4">
+       
+    <!-- Barra de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <input type="text" class="form-control" placeholder="Buscar productos...">
+        </div>
+    </div>
+    <!-- Secciones producto en oferta -->
+    <div class="container mt-4">
+        <div class="container mt-4">
+            <h2>Productos en Oferta</h2>
+            <div class="row">
+                {% for producto in productos_oferta %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">{{ producto.descripcion }}</p>
+                            <p><strong>Categoría: </strong>{{ producto.categoria.nombre }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "productos/footer.html" %}

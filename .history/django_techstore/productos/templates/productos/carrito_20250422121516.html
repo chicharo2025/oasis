@@ -1,0 +1,71 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2 class="mb-4"  style="text-align: center;">Tu Carrito</h2>
+    
+    {% if items_carrito %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items_carrito %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            {% if item.producto.imagen %}
+                            <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            {% endif %}
+                            <div class="ms-3">
+                                <h5>{{ item.producto.nombre }}</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${{ item.producto.precio }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'restar_del_carrito' item.id %}" class="btn btn-sm btn-outline-secondary">-</a>
+                            <span class="mx-2">{{ item.cantidad }}</span>
+                            <a href="{% url 'añadir_al_carrito' item.id %}" class="btn btn-sm btn-outline-secondary">+</a>
+                        </div>
+                    </td>
+                    <td>${{ item.subtotal }}</td>
+                    <td>
+                        <a href="{% url 'eliminar_del_carrito' item.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td colspan="2"><strong>${{ total }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'limpiar_carrito' %}" class="btn btn-warning">Limpiar Carrito</a>
+        <a href="{% url 'catalogo' %}" class="btn btn-primary">Seguir Comprando</a>
+        <a href="{% url 'pago' %}"  target="" class="btn btn-success">Proceder al Pago</a>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        Tu carrito está vacío.
+    </div>
+    <a href="{% url 'catalogo' %}" class="btn btn-primary">Ir al Catálogo</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% include "productos/footer.html" %}

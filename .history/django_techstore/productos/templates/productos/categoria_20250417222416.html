@@ -1,0 +1,23 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+ 
+<div class="container mt-4">
+      
+    <h1 class="mb-4">{{ categoria.nombre }}</h1>
+    
+    {% if categoria.descripcion %}
+    <div class="mb-4 p-3 bg-light rounded">
+        {{ categoria.descripcion }}
+    </div>
+    {% endif %}
+</div>
+
+
+{% include "productos/footer.html" %}
+
+
+
+

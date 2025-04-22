@@ -1,0 +1,36 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+<h2 style="padding: 20px;">Todas las Categorias</h2>
+<div class="container">
+    <div class="row">
+        {% for categoria in categorias %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">  
+                {%categoria.imagen %}
+                    <img src="{{ categoria.imagen.url }}" class="card-img-top" alt="{{ categoria.nombre }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ categoria.nombre }}</h5>
+                    <p class="card-text">{{ categoria.descripcion|default:"Sin descripción" }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'categoria' categoria.id %}" class="btn btn-primary btn-sm">
+                        Ver productos
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+{% include "productos/footer.html" %}
+
+
+
+

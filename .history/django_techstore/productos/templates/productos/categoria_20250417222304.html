@@ -1,0 +1,47 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+ 
+<div class="container mt-4">
+      
+    <h1 class="mb-4">{{ categoria.nombre }}</h1>
+    
+    {% if categoria.descripcion %}
+    <div class="mb-4 p-3 bg-light rounded">
+        {{ categoria.descripcion }}
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card h-100">
+                <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text text-muted small">{{ producto.descripcion|truncatechars:60 }}</p>
+                    <p class="h5 text-primary">${{ producto.precio }}</p>
+                </div>
+                <div class="card-footer bg-white">
+                    <a href="{% url 'detalle' producto.slug %}" class="btn btn-sm btn-outline-primary w-100">
+                        Ver detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No hay productos en esta categoría.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% include "productos/footer.html" %}
+
+
+
+

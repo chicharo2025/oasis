@@ -1,0 +1,21 @@
+{% load static %}
+{% include "productos/menu.html" %}
+
+
+
+
+
+{% if productos %}
+  <ul>
+    {% for item in productos %}
+      <li>
+        {{ item.producto.nombre }} - {{ item.cantidad }} x ${{ item.producto.precio }} = ${{ item.subtotal }}
+        <a href="{% url 'quitar_del_carrito' item.producto.id %}" style="text-decoration: none;">Quitar</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <p><strong>Total:</strong> ${{ total }}</p>
+{% else %}
+  <p><h1>Tu carrito está vacío</h1></p>
+{% endif %}
+{% include "productos/footer.html" %}
